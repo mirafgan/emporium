@@ -33,7 +33,7 @@ const swaggerDefinition = {
 // Options for the swagger docs
 const options = {
     swaggerDefinition,
-    apis: ['./dist/routes/*.js', './dist/controllers/*.js'], // Path to the API docs
+    apis: ['./routes/*.js', './controllers/*.js'], // Path to the API docs
 };
 // Initialize swagger-jsdoc
 const swaggerSpec = swaggerJsdoc(options);
