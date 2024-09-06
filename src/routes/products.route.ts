@@ -1,7 +1,7 @@
 import express from 'express';
 import { Router } from 'express';
-import auth from '../middlewares/auth.middleware';
-import { createProduct, deleteProductById, editProduct, getProductById, getProducts, getProductsByCategory, getProductsBySubcategory, searchProduct } from '../controllers/products';
+import auth from '../middlewares/auth.middleware.js';
+import { createProduct, deleteProductById, editProduct, getProductById, getProducts, getProductsByCategory, getProductsBySubcategory, searchProduct } from '../controllers/products.js';
 const router: Router = express.Router();
 
 // Route handlers with type annotations

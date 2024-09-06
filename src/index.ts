@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
-import productsRouter from "./routes/products.route"
-import loginRouter from "./routes/login.route"
-import categoriesRouter from "./routes/category.route"
+import productsRouter from "./routes/products.route.js"
+import loginRouter from "./routes/login.route.js"
+import categoriesRouter from "./routes/category.route.js"
 import cors from 'cors'
-import { setupSwagger } from './swagger'
+import { setupSwagger } from './swagger.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;

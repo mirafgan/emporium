@@ -1,7 +1,7 @@
 import express from 'express';
 import { Router } from 'express';
-import auth from '../middlewares/auth.middleware';
-import { createCategory, createSubcategory, deleteCategoryById, deleteSubcategory, editCategoriesById, getCategories, getCategoriesById, updateSubcategory } from "../controllers/category"
+import auth from '../middlewares/auth.middleware.js';
+import { createCategory, createSubcategory, deleteCategoryById, deleteSubcategory, editCategoriesById, getCategories, getCategoriesById, updateSubcategory } from "../controllers/category.js"
 const router: Router = express.Router();
 
 router.post('/create', auth, createCategory);
