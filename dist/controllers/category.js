@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,10 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSubcategory = exports.updateSubcategory = exports.deleteSubcategoryById = exports.editSubcategoriesById = exports.getSubcategoriesById = exports.getSubcategories = exports.createSubcategory = exports.deleteCategoryById = exports.editCategoriesById = exports.getCategoriesById = exports.getCategories = exports.createCategory = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 /**
  * @swagger
  * tags:
@@ -62,7 +59,7 @@ const prisma = new client_1.PrismaClient();
  *       500:
  *         description: Internal server error
  */
-const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, slug } = req.body;
         if (!name) {
@@ -79,7 +76,6 @@ const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ error: 'Failed to create category' });
     }
 });
-exports.createCategory = createCategory;
 /**
  * @swagger
  * /categories:
@@ -107,7 +103,7 @@ exports.createCategory = createCategory;
  *       500:
  *         description: Internal server error
  */
-const getCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const categories = yield prisma.category.findMany();
         res.status(200).json(categories);
@@ -117,7 +113,6 @@ const getCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ error: 'Failed to fetch categories' });
     }
 });
-exports.getCategories = getCategories;
 /**
  * @swagger
  * /categories/{id}:
@@ -152,7 +147,7 @@ exports.getCategories = getCategories;
  *       500:
  *         description: Internal server error
  */
-const getCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const categoryId = parseInt(req.params.id);
         const category = yield prisma.category.findUnique({
@@ -170,7 +165,6 @@ const getCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(500).json({ error: 'Failed to fetch category' });
     }
 });
-exports.getCategoriesById = getCategoriesById;
 /**
  * @swagger
  * /categories/{id}:
@@ -222,7 +216,7 @@ exports.getCategoriesById = getCategoriesById;
  *       500:
  *         description: Internal server error
  */
-const editCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const editCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const categoryId = parseInt(req.params.id);
         const { name, slug } = req.body;
@@ -246,7 +240,6 @@ const editCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, funct
         }
     }
 });
-exports.editCategoriesById = editCategoriesById;
 /**
  * @swagger
  * /categories/{id}:
@@ -272,7 +265,7 @@ exports.editCategoriesById = editCategoriesById;
  *       500:
  *         description: Internal server error
  */
-const deleteCategoryById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteCategoryById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const categoryId = parseInt(req.params.id);
         yield prisma.category.delete({
@@ -290,7 +283,6 @@ const deleteCategoryById = (req, res) => __awaiter(void 0, void 0, void 0, funct
         }
     }
 });
-exports.deleteCategoryById = deleteCategoryById;
 /**
  * @swagger
  * /subcategories/create:
@@ -338,7 +330,7 @@ exports.deleteCategoryById = deleteCategoryById;
  *       500:
  *         description: Internal server error
  */
-const createSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, categoryId, slug } = req.body;
         if (!name || !categoryId) {
@@ -355,7 +347,6 @@ const createSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(500).json({ error: 'Failed to create subcategory' });
     }
 });
-exports.createSubcategory = createSubcategory;
 /**
  * @swagger
  * /subcategories:
@@ -385,7 +376,7 @@ exports.createSubcategory = createSubcategory;
  *       500:
  *         description: Internal server error
  */
-const getSubcategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getSubcategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const subcategories = yield prisma.subcategory.findMany();
         res.status(200).json(subcategories);
@@ -395,7 +386,6 @@ const getSubcategories = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(500).json({ error: 'Failed to fetch subcategories' });
     }
 });
-exports.getSubcategories = getSubcategories;
 /**
  * @swagger
  * /subcategories/{id}:
@@ -432,7 +422,7 @@ exports.getSubcategories = getSubcategories;
  *       500:
  *         description: Internal server error
  */
-const getSubcategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getSubcategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const subcategoryId = parseInt(req.params.id);
         const subcategory = yield prisma.subcategory.findUnique({
@@ -450,7 +440,6 @@ const getSubcategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(500).json({ error: 'Failed to fetch subcategory' });
     }
 });
-exports.getSubcategoriesById = getSubcategoriesById;
 /**
  * @swagger
  * /subcategories/{id}:
@@ -507,7 +496,7 @@ exports.getSubcategoriesById = getSubcategoriesById;
  *       500:
  *         description: Internal server error
  */
-const editSubcategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const editSubcategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const subcategoryId = parseInt(req.params.id);
         const { name, categoryId, slug } = req.body;
@@ -531,7 +520,6 @@ const editSubcategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, fu
         }
     }
 });
-exports.editSubcategoriesById = editSubcategoriesById;
 /**
  * @swagger
  * /subcategories/{id}:
@@ -557,7 +545,7 @@ exports.editSubcategoriesById = editSubcategoriesById;
  *       500:
  *         description: Internal server error
  */
-const deleteSubcategoryById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteSubcategoryById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const subcategoryId = parseInt(req.params.id);
         yield prisma.subcategory.delete({
@@ -575,7 +563,6 @@ const deleteSubcategoryById = (req, res) => __awaiter(void 0, void 0, void 0, fu
         }
     }
 });
-exports.deleteSubcategoryById = deleteSubcategoryById;
 /**
  * @swagger
  * /subcategories/update/{id}:
@@ -640,7 +627,7 @@ exports.deleteSubcategoryById = deleteSubcategoryById;
  *       500:
  *         description: Internal server error.
  */
-const updateSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const updateSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const subcategoryId = parseInt(req.params.id);
         const { name, categoryId, slug } = req.body;
@@ -668,7 +655,6 @@ const updateSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
     }
 });
-exports.updateSubcategory = updateSubcategory;
 /**
  * @swagger
  * /subcategories/delete/{id}:
@@ -694,7 +680,7 @@ exports.updateSubcategory = updateSubcategory;
  *       500:
  *         description: Internal server error.
  */
-const deleteSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const subcategoryId = parseInt(req.params.id);
         const result = yield prisma.subcategory.delete({
@@ -712,4 +698,3 @@ const deleteSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
     }
 });
-exports.deleteSubcategory = deleteSubcategory;

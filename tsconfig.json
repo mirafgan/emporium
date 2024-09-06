@@ -1,12 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "es6",
-		"module": "CommonJS",
-		"outDir": "./dist",
-		"strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
+		"target": "ES6", // JavaScript çıktısı ES6 olacak
+		"module": "ESNext", // Modül sistemi ES Module olacak
+		"outDir": "./dist", // Derlenmiş dosyaların çıkış dizini
+		"rootDir": "./src", // Kaynak dosyaların bulunduğu dizin
+		"strict": true, // Katı TypeScript kuralları
+		"esModuleInterop": true, // ES module ile CommonJS uyumluluğu
+		"moduleResolution": "node", // Modül çözümleme stratejisi
+		"forceConsistentCasingInFileNames": true, // Dosya adlarında tutarlılık zorunlu
+		"skipLibCheck": true // Kütüphane kontrolünü atla (hız için)
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]

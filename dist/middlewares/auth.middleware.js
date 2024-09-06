@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,15 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const client_1 = require("@prisma/client");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const prisma = new client_1.PrismaClient();
+import jwt from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+dotenv.config();
+const prisma = new PrismaClient();
 const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const authHeader = req.headers['authorization'];
@@ -30,7 +25,7 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
             return;
         }
         const secret = process.env.JWT_SECRET;
-        const decoded = jsonwebtoken_1.default.verify(token, secret);
+        const decoded = jwt.verify(token, secret);
         const user = yield prisma.user.findUnique({
             where: { id: decoded.userid }
         });
@@ -46,4 +41,4 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(401).json({ error: 'Unauthorized: Invalid token' });
     }
 });
-exports.default = auth;
+export default auth;

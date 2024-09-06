@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,11 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductsBySubcategory = exports.getProductsByCategory = exports.searchProduct = exports.deleteProductById = exports.editProduct = exports.getProductById = exports.getProducts = exports.createProduct = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
-const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+export const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newProduct = yield prisma.product.create({
             data: req.body
@@ -24,8 +21,7 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ error: 'Failed to create product' });
     }
 });
-exports.createProduct = createProduct;
-const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page = 1, limit = 10, sortBy = 'createdTime', sortOrder = 'desc', categoryId, SubcategoryId, brandId, colorId, sizeId, minPrice, maxPrice, discount } = req.query;
         const pageNumber = parseInt(page);
@@ -102,8 +98,7 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(500).json({ error: 'Failed to fetch products' });
     }
 });
-exports.getProducts = getProducts;
-const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = yield prisma.product.findUnique({
             where: { id: Number(req.params.id) },
@@ -127,8 +122,7 @@ const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ error: 'Failed to fetch product' });
     }
 });
-exports.getProductById = getProductById;
-const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const updatedProduct = yield prisma.product.update({
             where: { id: Number(req.params.id) },
@@ -146,8 +140,7 @@ const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
 });
-exports.editProduct = editProduct;
-const deleteProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield prisma.product.delete({
             where: { id: Number(req.params.id) }
@@ -164,8 +157,7 @@ const deleteProductById = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
     }
 });
-exports.deleteProductById = deleteProductById;
-const searchProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const query = req.query.q;
         const products = yield prisma.product.findMany({
@@ -185,8 +177,7 @@ const searchProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ error: 'Failed to search products' });
     }
 });
-exports.searchProduct = searchProduct;
-const getProductsByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getProductsByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const categoryId = Number(req.params.category);
         if (isNaN(categoryId)) {
@@ -216,8 +207,7 @@ const getProductsByCategory = (req, res) => __awaiter(void 0, void 0, void 0, fu
         }
     }
 });
-exports.getProductsByCategory = getProductsByCategory;
-const getProductsBySubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getProductsBySubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const products = yield prisma.product.findMany({
             where: { subcategoryId: Number(req.params.subcategory) }
@@ -229,4 +219,3 @@ const getProductsBySubcategory = (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(500).json({ error: 'Failed to fetch products by Subcategory' });
     }
 });
-exports.getProductsBySubcategory = getProductsBySubcategory;

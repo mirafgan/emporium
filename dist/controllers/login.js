@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,17 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = exports.deleteCart = exports.addToCart = exports.login = void 0;
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const client_1 = require("@prisma/client");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const prisma = new client_1.PrismaClient();
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+dotenv.config();
+const prisma = new PrismaClient();
 /**
  * @swagger
  * tags:
@@ -61,7 +55,7 @@ const prisma = new client_1.PrismaClient();
  *       500:
  *         description: Internal server error
  */
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body;
         if (!username || !password) {
@@ -73,12 +67,12 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(401).json({ error: 'Invalid username or password' });
             return;
         }
-        const passwordMatch = yield bcrypt_1.default.compare(password, user.password);
+        const passwordMatch = yield bcrypt.compare(password, user.password);
         if (!passwordMatch) {
             res.status(401).json({ error: 'Invalid username or password' });
             return;
         }
-        const token = jsonwebtoken_1.default.sign({ userid: user.id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ userid: user.id }, process.env.JWT_SECRET, {
             expiresIn: '1h',
         });
         res.status(200).json({ token });
@@ -88,7 +82,6 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: 'Failed to login' });
     }
 });
-exports.login = login;
 /**
  * @swagger
  * /add-to-cart:
@@ -120,7 +113,7 @@ exports.login = login;
  *       500:
  *         description: Internal server error
  */
-const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.body;
         if (!productId) {
@@ -133,7 +126,7 @@ const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const token = authHeader.split(' ')[1];
-        const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = yield prisma.user.findUnique({ where: { id: decoded.userid } });
         if (!user) {
             res.status(401).json({ error: 'Unauthorized: Invalid user' });
@@ -155,7 +148,6 @@ const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: 'Failed to add product to cart' });
     }
 });
-exports.addToCart = addToCart;
 /**
  * @swagger
  * /delete-cart:
@@ -185,7 +177,7 @@ exports.addToCart = addToCart;
  *       500:
  *         description: Internal server error
  */
-const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!req.user || !req.user.id) {
             res.status(400).json({ error: 'User ID is required' });
@@ -212,7 +204,6 @@ const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({ error: 'Failed to remove item from cart' });
     }
 });
-exports.deleteCart = deleteCart;
 /**
  * @swagger
  * /register:
@@ -263,7 +254,7 @@ exports.deleteCart = deleteCart;
  *       500:
  *         description: Internal server error
  */
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, username, phone, address, dob, gender, email, password } = req.body;
         if (!name || !username || !phone || !address || !dob || !gender || !email || !password) {
@@ -277,7 +268,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).json({ error: 'Username or email already taken' });
             return;
         }
-        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        const hashedPassword = yield bcrypt.hash(password, 10);
         const newUser = yield prisma.user.create({
             data: {
                 name,
@@ -297,4 +288,3 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: 'Failed to register user' });
     }
 });
-exports.register = register;
