@@ -19,7 +19,6 @@
   },
   "scripts": {
     "postinstall": "npx tsc",
-    "build": "npx tsc",
     "start": "bun run --watch ./src/index.ts"
   },
   "dependencies": {
