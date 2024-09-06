@@ -23,7 +23,7 @@ const swaggerDefinition = {
   components: {
     securitySchemes: {
       BearerAuth: {
-        type: 'http',
+        type: 'https',
         scheme: 'bearer',
         bearerFormat: 'JWT',
       },
