@@ -18,6 +18,7 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
+    "postinstall": "npx tsc",
     "build": "npx tsc",
     "start": "bun run --watch ./src/index.ts"
   },
