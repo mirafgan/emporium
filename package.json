@@ -1,6 +1,5 @@
 {
   "name": "emporium",
-  "module": "index.js",
   "type": "module",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
