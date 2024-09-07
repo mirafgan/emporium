@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Router } from 'express';
-import auth from '../middlewares/auth.middleware.js';
-import { deleteImage, upload } from '../middlewares/upload.middleware.js'
+import auth from '../middlewares/auth.middleware';
+import { deleteImage, upload } from '../middlewares/upload.middleware'
 
 const router: Router = express.Router();
 

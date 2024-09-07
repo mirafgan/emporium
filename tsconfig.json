@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
-		"target": "ES6", // JavaScript çıktısı ES6 olacak
-		"module": "ESNext", // Modül sistemi ES Module olacak
+		"target": "es6", // JavaScript çıktısı ES6 olacak
+		"module": "commonjs", // Modül sistemi ES Module olacak
 		"outDir": "./dist", // Derlenmiş dosyaların çıkış dizini
-		"rootDir": "./src", // Kaynak dosyaların bulunduğu dizin
+		"baseUrl": "./src", // Kaynak dosyaların bulunduğu dizin
 		"strict": true, // Katı TypeScript kuralları
 		"esModuleInterop": true, // ES module ile CommonJS uyumluluğu
 		"moduleResolution": "node", // Modül çözümleme stratejisi

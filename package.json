@@ -1,6 +1,5 @@
 {
   "name": "emporium",
-  "type": "module",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
