@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://undefined",
+            "url": "https://emporium-iota.vercel.app",
             "description": "Development server"
         }
     ],
