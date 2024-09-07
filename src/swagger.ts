@@ -2,7 +2,7 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
-
+import fs from "node:fs"
 // Swagger definition
 const swaggerDefinition = {
   openapi: '3.0.0',
@@ -41,7 +41,7 @@ const options = {
 
 // Initialize swagger-jsdoc
 const swaggerSpec = swaggerJsdoc(options);
-
+fs.writeFileSync("swagger.json", JSON.stringify(swaggerSpec))
 export const setupSwagger = (app: Express) => {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
