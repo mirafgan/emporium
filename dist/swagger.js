@@ -46,6 +46,6 @@ const options = {
 // Initialize swagger-jsdoc
 const swaggerSpec = (0, swagger_jsdoc_1.default)(options);
 const setupSwagger = (app) => {
-    app.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerSpec));
+    app.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerSpec, { customCssUrl: "./css/swagger.css" }));
 };
 exports.setupSwagger = setupSwagger;
