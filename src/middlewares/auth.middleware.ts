@@ -11,7 +11,7 @@ interface DecodedToken {
     userid: number;
 }
 
-const auth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const auth = async (req: any, res: Response, next: NextFunction): Promise<void> => {
     try {
         const authHeader = req.headers['authorization'];
         if (!authHeader) {
@@ -25,7 +25,7 @@ const auth = async (req: Request, res: Response, next: NextFunction): Promise<vo
             return;
         }
 
-        const secret = process.env.JWT_SECRET as string; 
+        const secret = process.env.JWT_SECRET as string;
 
         const decoded = jwt.verify(token, secret) as DecodedToken;
 

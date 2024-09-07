@@ -210,7 +210,7 @@ interface DeleteCartRequestBody {
  *       500:
  *         description: Internal server error
  */
-export const deleteCart = async (req: Request<{}, {}, DeleteCartRequestBody>, res: Response): Promise<void> => {
+export const deleteCart = async (req: any, res: Response): Promise<void> => {
     try {
         if (!req.user || !req.user.id) {
             res.status(400).json({ error: 'User ID is required' });
